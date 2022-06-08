@@ -1,0 +1,14 @@
+{% extends 'news/base.html' %}
+{% block title %}{{ article.title }}{% endblock %}
+{% block content %}
+    <div class="p-4">
+        <h4 class="fst-italic">Tag list</h4>
+        <ol class="rectangle">
+            {% for tag in tags_list %}
+                <li><a href="{{ tag.slug }}">{{ tag.name_category }}</a></li>
+            {% endfor %}
+        </ol>
+    </div>
+
+
+{% endblock %}

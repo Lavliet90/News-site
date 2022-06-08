@@ -1,0 +1,42 @@
+{% extends 'news/base.html' %}
+{% block title %}{{ article.title }}{% endblock %}
+{% block content %}
+
+    <h1 class="fst-italic">{{ article.title }}</h1>
+    <br>
+    <strong>Tag:</strong> {{ article.category }}<br>
+    <strong>Author:</strong> {{ article.author }}<br><br>
+    {% if article.photo %}
+        <p><img class="img-article-left" src="{{ article.photo.url }}"></p>
+    {% endif %}
+    <p>{{ article.text }}</p>
+    <br>
+    <hr/>
+
+    {% if article.video %}
+        <iframe width="560" height="315" src="{{ article.video }}" frameborder="0" allowfullscreen></iframe>
+    {% endif %}
+
+
+<br/><br/><br/>
+    {% with comments.count as total_comments %}
+        <h3>
+            {{ total_comments }} comments{{ total_comments|pluralize }}
+        </h3>
+    {% endwith %}
+    {% for i in comments %}
+        <div class="comment">
+            <p class="info">
+                {{ forloop.counter }}. Name: {{ i.name }} <br>
+                Email: {{ i.email }} <br>
+                {{ i.comment_text }}<br>
+                date: {{ i.comment_create }}<br>
+            <hr/>
+            </p>
+        </div>
+    {% empty %}
+        <p>There are no comments yet.</p>
+    {% endfor %}
+    <a href="{% url 'add_comment' %}">Add comment</a>
+
+{% endblock %}
