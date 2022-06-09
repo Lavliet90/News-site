@@ -7,7 +7,6 @@ from .views import *
 
 class NewsTests(TestCase):
 
-
     # url test
     def test_url_logout(self):
         url = reverse('logout')
@@ -107,13 +106,12 @@ class NewsTests(TestCase):
     def setUp(self):
         self.category = CategoryArticle.objects.create(name_category='Test tag', slug='test-tag')
         self.author = User.objects.create(username='Yan4321', email='Yan1234@gmail.com', password='qazedctgb1234')
-        self.article = Article.objects.create(title='test', text='test_text', author=self.author, slug_field='test_slug',
-                                         status='publisher', category=self.category)
+        self.article = Article.objects.create(title='test', text='test_text', author=self.author,
+                                              slug_field='test_slug',
+                                              status='publisher', category=self.category)
 
     def test_category_article_is_text(self):
         self.assertEqual(str(self.category), 'Test tag')
-
-
 
     def test_article_model_is_not_empty(self):
         self.assertNotEqual(self.article, None)
@@ -123,9 +121,6 @@ class NewsTests(TestCase):
             Article.objects.create(title='test', text='test_text', author=self.author, slug_field='test_slug',
                                    status='publisher', category=self.category)
 
-
     def test_tag_is_unique(self):
         with self.assertRaises(Exception):
             CategoryArticle.objects.create(name_category='Test tag', slug='test-tag')
-
-

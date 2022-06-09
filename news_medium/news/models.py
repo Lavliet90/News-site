@@ -4,9 +4,10 @@ from embed_video.fields import EmbedVideoField
 from django.urls import reverse
 
 
-
-
 class CategoryArticle(models.Model):
+    '''
+    Tags for articles
+    '''
     name_category = models.CharField(max_length=30, verbose_name='Name tags')
     slug = models.SlugField(max_length=35, unique=True, db_index=True, verbose_name='URL', blank=True)
     create = models.DateTimeField(auto_now_add=True, verbose_name='Time of creation')
@@ -51,7 +52,8 @@ class Article(models.Model):
 
 
 class Comment(models.Model):
-    article = models.ForeignKey(Article, related_name='comments', on_delete=models.CASCADE, verbose_name='Related article')
+    article = models.ForeignKey(Article, related_name='comments', on_delete=models.CASCADE,
+                                verbose_name='Article for comment')
     name = models.CharField(max_length=250, verbose_name='Name user')
     email = models.EmailField(verbose_name='Email')
     comment_text = models.TextField(verbose_name='Text comment')

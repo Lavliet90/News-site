@@ -18,7 +18,7 @@
     {% endif %}
 
 
-<br/><br/><br/>
+    <br/><br/><br/>
 
     {% with comments.count as total_comments %}
         <h3>
@@ -30,14 +30,14 @@
         <hr/>
         <div class="comment">
             <p class="info">
-               Name: <i>{{ i.name }}</i> <br>
+                Name: <i>{{ i.name }}</i> <br>
                 Email: <i>{{ i.email }}</i> <br><br>
                 {{ i.comment_text }}<br><br>
                 <i>date: {{ i.comment_create }}</i><br>
 
             </p>
         </div>
-    {% empty %}
+        {% empty %}
         <p>There are no comments yet.</p>
     {% endfor %}
 
