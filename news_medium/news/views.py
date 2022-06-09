@@ -34,7 +34,6 @@ class ArticleDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Article'
         context['comments'] = Comment.objects.filter(article=context.get('article'))
-        print(context.get('article'))
         return context
 
 
@@ -61,6 +60,7 @@ class TagsListVies(ListView):
         context['title'] = 'List tags'
         return context
 
+
 class ShowArticleListView(ListView):
     model = Article
     template_name = 'news/article/main_page.html'
@@ -72,7 +72,8 @@ class ShowArticleListView(ListView):
         return context
 
     def get_queryset(self):
-        return Article.objects.filter(category__slug=self.kwargs['category_slug'], status='publisher')
+        return Article.objects.filter(category__slug=self.kwargs['category_slug'], status='publisher').select_related(
+            'category').only('title', 'text', 'photo', 'create', 'category')
 
 
 class ArticleCreateView(CreateView):
@@ -102,6 +103,7 @@ class RegisterUser(CreateView):
         login(self.request, user)
         return redirect('article_list')
 
+
 class LoginUser(LoginView):
     form_class = LoginUserForm
     template_name = 'news/login_register/login.html'
@@ -118,3 +120,15 @@ class LoginUser(LoginView):
 def logout_user(request):
     logout(request)
     return redirect('login')
+
+
+class TagsCreateView(CreateView):
+    model = CategoryArticle
+    fields = ['name_category', 'slug']
+    template_name = 'news/tags/add_tag.html'
+    success_url = reverse_lazy('article_list')
+
+    def get_context_data(self, *, objects_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Add tag'
+        return context

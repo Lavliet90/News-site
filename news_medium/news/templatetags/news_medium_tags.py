@@ -6,5 +6,5 @@ register = template.Library()
 
 @register.simple_tag()
 def get_5_tags():
-    return CategoryArticle.objects.all()[:5]
+    return CategoryArticle.objects.all().only('name_category', 'slug')[:5]
 

@@ -9,6 +9,8 @@
             <p><label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}: </label>{{ f }}</p>
             <div class="form-error">{{ f.errors }}</div>
         {% endfor %}
-        <button type="submit">Log in</button>
-    </form>
+        <button type="submit" class="btn btn-sm btn-outline-secondary">Log in</button>
+    </form> <br/>
+    <h6>Or registration:</h6>
+    <a href="{% url 'register' %}" class="btn btn-sm btn-outline-secondary">Registration</a>
 {% endblock %}

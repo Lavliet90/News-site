@@ -7,8 +7,12 @@
             {% for tag in tags_list %}
                 <li><a href="{{ tag.slug }}">{{ tag.name_category }}</a></li>
             {% endfor %}
+
         </ol>
     </div>
-
-
+    {% if request.user.is_authenticated %}
+        <a href="{% url 'add_tag' %}" class="btn btn-sm btn-outline-secondary">Add tag</a></li>
+    {% else %}
+    <li>Would you like to add your own tag? Join us: <a href="{% url 'login' %}" class="btn btn-sm btn-outline-secondary">Log in</a></li>
+    {% endif %}
 {% endblock %}

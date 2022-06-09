@@ -19,24 +19,27 @@
 
 
 <br/><br/><br/>
+
     {% with comments.count as total_comments %}
         <h3>
-            {{ total_comments }} comments{{ total_comments|pluralize }}
+            {{ total_comments }} Last comment{{ total_comments|pluralize }}:
         </h3>
     {% endwith %}
+    <button class="btn btn-sm btn-outline-secondary"><a href="{% url 'add_comment' %} ">Add new comment</a></button>
     {% for i in comments %}
+        <hr/>
         <div class="comment">
             <p class="info">
-                {{ forloop.counter }}. Name: {{ i.name }} <br>
-                Email: {{ i.email }} <br>
-                {{ i.comment_text }}<br>
-                date: {{ i.comment_create }}<br>
-            <hr/>
+               Name: <i>{{ i.name }}</i> <br>
+                Email: <i>{{ i.email }}</i> <br><br>
+                {{ i.comment_text }}<br><br>
+                <i>date: {{ i.comment_create }}</i><br>
+
             </p>
         </div>
     {% empty %}
         <p>There are no comments yet.</p>
     {% endfor %}
-    <a href="{% url 'add_comment' %}">Add comment</a>
+
 
 {% endblock %}
