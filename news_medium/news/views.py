@@ -20,7 +20,7 @@ class ArticleListView(ListView):
         return context
 
     def get_queryset(self):
-        return Article.objects.filter(status='publisher').select_related('category')
+        return Article.objects.filter(status='publisher').select_related('category').only('title', 'text', 'photo', 'create', 'category')
 
 
 class ArticleDetailView(DetailView):
